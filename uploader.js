@@ -2,7 +2,7 @@
  * @author Edwin Fan
  * edwin.fan@foxmail.com
  */
-window.rootPath = (function (src) {
+window.rootPathUploader = (function (src) {
     src = document.scripts[document.scripts.length - 1].src;
     return src.substring(0, src.lastIndexOf("/") + 1);
 })();
@@ -30,13 +30,6 @@ window.rootPath = (function (src) {
                 this.config = config;
                 return this;
             },
-            setRootPath:function (rootPath) {
-                this.config.rootPath = rootPath;
-                return this;
-            },
-            getConfig:function (key) {
-                return this.config.key;
-            }
         }
     );
 
@@ -83,8 +76,8 @@ window.rootPath = (function (src) {
 
         switch (uploader) {
             case 'ali':
-                $.getScript(rootPath + "vendor/aliyun-oss-sdk.min.js", function () {
-                    $.getScript(rootPath + "plugs/ali-oss.js",function () {
+                $.getScript(rootPathUploader + "vendor/aliyun-oss-sdk.min.js", function () {
+                    $.getScript(rootPathUploader + "plugs/ali-oss.js",function () {
                         let handler = new AliOss();
                         callback(handler);
                     });
@@ -92,8 +85,8 @@ window.rootPath = (function (src) {
                 break;
 
             case 'qiniu':
-                $.getScript(rootPath + "vendor/qiniu.min.js", function () {
-                    $.getScript(rootPath + "plugs/qiniu.js",function () {
+                $.getScript(rootPathUploader + "vendor/qiniu.min.js", function () {
+                    $.getScript(rootPathUploader + "plugs/qiniu.js",function () {
                         let handler = new QiNiu();
                         handler.setHandle(qiniu);
                         callback(handler);
@@ -101,8 +94,8 @@ window.rootPath = (function (src) {
                 });
                 break;
             case 'local':
-                $.getScript(rootPath + "vendor/local.js", function () {
-                    $.getScript(rootPath + "plugs/local-upload.js",function () {
+                $.getScript(rootPathUploader + "vendor/local.js", function () {
+                    $.getScript(rootPathUploader + "plugs/local-upload.js",function () {
                         let handler = new LocalUpload();
                         callback(handler)
                     });
